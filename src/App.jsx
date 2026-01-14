@@ -1,6 +1,6 @@
 import "/src/app.css";
 import Die from "./components/Die";
-import { useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import Confetti from "react-confetti";
 
 export default function App() {
@@ -9,6 +9,7 @@ export default function App() {
   const gameWon = dice.every(
     (die) => die.isHeld && dice.every((die) => die.value === dice[0].value)
   );
+  const actionBtn = useRef(null);
 
   function generateDice(count = DICE_COUNT) {
     const newDice = [];
@@ -42,6 +43,12 @@ export default function App() {
     }
   }
 
+  useEffect(() => {
+    if (gameWon) {
+      actionBtn.current.focus();
+    }
+  }, [gameWon]);
+
   return (
     <main>
       {gameWon && <Confetti />}
@@ -61,7 +68,7 @@ export default function App() {
         ))}
       </div>
 
-      <button className="roll-dice-btn" onClick={roll}>
+      <button className="roll-dice-btn" onClick={roll} ref={actionBtn}>
         {gameWon ? "New Game" : "Roll"}
       </button>
     </main>
