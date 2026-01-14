@@ -46,6 +46,10 @@ export default function App() {
     <main>
       {gameWon && <Confetti />}
       <div aria-live="polite" className="sr-only"><p>{gameWon ? "You Won!\nPress New Game to restart" : ""}</p></div>
+      <div className="game-title">
+        <h1>Tenzies</h1>
+        <p>Roll until all dice are the same. Click each die to freeze it at its current value between rolls.</p>
+      </div>
       <div className="dice-container">
         {dice.map((die) => (
           <Die
